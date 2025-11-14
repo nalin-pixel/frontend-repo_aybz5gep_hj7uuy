@@ -1,26 +1,25 @@
-import { useState } from 'react'
+import { useMemo } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Landing from './components/Landing'
+import Marketing from './components/Marketing'
+import IT from './components/IT'
+import { Header, useLang } from './components/Shared'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const langState = useLang()
+  const { t } = langState
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen bg-white text-gray-900">
+      <Header langState={langState} />
+      <main className="">
+        <Routes>
+          <Route path="/" element={<Landing t={t} />} />
+          <Route path="/marketing" element={<Marketing t={t} />} />
+          <Route path="/it" element={<IT t={t} />} />
+        </Routes>
+      </main>
+      <footer className="py-10 text-center text-sm text-gray-600">© {new Date().getFullYear()} Leonardo Notargiacomo</footer>
     </div>
   )
 }
